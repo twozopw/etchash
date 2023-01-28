@@ -156,7 +156,7 @@ void ethash_quick_hash(
 );
 
 uint64_t ethash_get_datasize(uint64_t const block_number);
-uint64_t ethash_get_cachesize(uint64_t const block_number);
+uint64_t ethash_get_cachesize(uint64_t const block_number); 
 uint64_t etchash_calc_epoch(uint64_t const block_number);
 
 /**

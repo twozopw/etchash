@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
 
-package ethash
+package etchash
 
 /*
 #include "src/libethash/internal.h"
@@ -66,7 +66,7 @@ func defaultDir() string {
 	if runtime.GOOS == "windows" {
 		return filepath.Join(home, "AppData", "Ethash")
 	}
-	return filepath.Join(home, ".etc_hash")
+	return filepath.Join(home, ".test_ethash")
 }
 
 // cache wraps an ethash_light_t with some metadata
@@ -165,16 +165,6 @@ func (l *Light) Verify(block Block) (bool, string, int64) {
 	} else {
 		return ret, "", actualDiff
 	}
-}
-
-
-func (l *Light) Compute(blockNum uint64, hashNoNonce common.Hash, nonce uint64) (ok bool, mixDigest, result common.Hash) {
-	cache := l.getCache(blockNum)
-	dagSize := C.ethash_get_datasize(C.uint64_t(blockNum))
-	if l.test {
-		dagSize = dagSizeForTesting
-	}
-	return cache.compute(uint64(dagSize), hashNoNonce, nonce)
 }
 
 func h256ToHash(in C.ethash_h256_t) common.Hash {
